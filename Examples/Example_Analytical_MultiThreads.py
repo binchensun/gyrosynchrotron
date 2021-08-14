@@ -42,8 +42,11 @@ ParmLocal[16]=0.2  # \Delta\mu
  
 Parms=np.zeros((24, NSteps), dtype='double', order='F') # 2D array of input parameters - for multiple voxels
 for i in range(NSteps):
-    Parms[:, i]=ParmLocal # most of the parameters are the same in all voxels     
-    Parms[4, i]=50.0+30.0*i/(NSteps-1) # the viewing angle varies from 50 to 80 degrees along the LOS
+    Parms[:, i]=ParmLocal # most of the parameters are the same in all voxels
+    if NSteps > 1:
+        Parms[4, i] = 50.0 + 30.0 * i / (NSteps - 1)  # the viewing angle varies from 50 to 80 degrees along the LOS
+    else:
+        Parms[4, i] = 50.0  # the viewing angle varies from 50 to 80 degrees along the LOS
  
 Parms_M=np.zeros((24, NSteps, Npix), dtype='double', order='F') # 3D array of input parameters - for multiple voxels and LOSs
 for pix in range(Npix):
